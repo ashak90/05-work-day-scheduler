@@ -1,20 +1,18 @@
-// var currentHour = moment().format("LT");
+// Variable for the date and time
 var currentDate = moment().format("dddd, D MMMM");
 var currentHour = moment().format("H A")
-// var currentHour = 13;
 
 $("#currentDay").text(currentDate);
-// $("#currentTime").text(currentHour+":00");
+
 //Display current time every second
 setInterval(function () {
   var d = new Date();
 
   var n = d.toLocaleTimeString();
-  // console.log(n)
   $("#currentTime").text(n);
 }, 1000);
-// console.log(currentHour);
 
+//Time of Day Defined
 var workdaySchedule = [
   { time: "9 AM", event: "" },
   { time: "10 AM", event: "" },
@@ -31,35 +29,9 @@ var workdaySchedule = [
   { time: "9 PM", event: "" },
 ];
 
-// for (let i=0; i<timeOfDay.length; i++) {
-//     // var newRow = $("row");
-//     // var hourDisplay = $(".hour").text(timeOfDay[i] + ".00");
-//     var newRow = $("<div class = 'row'>");
-//     var hourDisplay = $("<div class='col-med-1 hour'>").text(
-//         timeOfDay[i] + "   "
-//       );
-//     var taskInput = $("<textarea class = 'description col-sm-10 time-block'>");
-//     taskInput.attr("data-hour", timeOfDay[i]);
-//     console.log("data")
-//     var saveBtn = $("<button class= 'col-sm-1 save-btn'>")
-//     var saveIcon = $("<i class='far fa-save'>")
-//     saveBtn.append(saveIcon)
-//     // saveBtn.attr("data-hour", timeOfDay[i]);
+//Function to create the structure of the schedule
 
-//     newRow.append(hourDisplay, taskInput,saveBtn);
-//     $(".container").append(newRow);
-
-//     // if (taskInput.attr("data-hour")<currentTime){
-//     //     taskInput.addClass("past")
-//     // } else if (taskInput.attr("data-hour")==currentTime){
-//     //     taskInput.addClass("present")
-//     // } else {
-//     //   taskInput.addClass("future")
-//     // }
-//     console.log((timeOfDay[i]));
-// }
-
-workdaySchedule.forEach(function (hourBlock, index) {
+workdaySchedule.forEach(function (hourBlock,index) {
   var timeLabel = hourBlock.time;
   var blockColor = colorRow(timeLabel);
   var row =
@@ -74,8 +46,10 @@ workdaySchedule.forEach(function (hourBlock, index) {
     '</textarea><div class="col-sm col-lg-1 input-group-append"><button class="saveBtn btn-block" type="submit"><i class="far fa-save fa-3x"></i></button></div></div></div>';
 
   $(".container").append(row);
-  console.log("Index is: " + index)
+  console.log("Index is: ")
 })
+
+//Function that defines the color of each row 
 
 function colorRow(time) {
   var scheduleNow = moment(currentHour, "H A");
@@ -92,10 +66,7 @@ function colorRow(time) {
   }
 }
 
-// var workEvents = JSON.parse(localStorage.getItem("workDay"));
-// if (workEvents) {
-//   workdaySchedule = workEvents;
-// }
+//Local Storage
 
 $(".saveBtn").on("click", function () {
   var blockID = parseInt(
