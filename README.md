@@ -13,5 +13,6 @@ Deployed URL:https://ashak90.github.io/05-work-day-scheduler/
 
 ![screenshot1](./Assets/screenshots/screenshot-1.png) 
 ![screenshot2](./Assets/screenshots/screenshot-2.png) 
+![screenshot3](./Assets/screenshots/screenshot-3.png) 
 
 
