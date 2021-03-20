@@ -15,7 +15,7 @@ setInterval(function () {
 }, 1000);
 // console.log(currentHour);
 
-var timeOfDay = [
+var workdaySchedule = [
   { time: "9 AM", event: " " },
   { time: "10 AM", event: " " },
   { time: "11 AM", event: " " },
@@ -26,6 +26,9 @@ var timeOfDay = [
   { time: "4 PM", event: " " },
   { time: "5 PM", event: " " },
   { time: "6 PM", event: " " },
+  { time: "7 PM", event: " " },
+  { time: "8 PM", event: " " },
+  { time: "9 PM", event: " " },
 ];
 
 // for (let i=0; i<timeOfDay.length; i++) {
@@ -56,34 +59,60 @@ var timeOfDay = [
 //     console.log((timeOfDay[i]));
 // }
 
-timeOfDay.forEach(function (hourBlock, index) {
+workdaySchedule.forEach(function (hourBlock, index) {
   var timeLabel = hourBlock.time;
   var blockColor = colorRow(timeLabel);
   var row =
-    '<div class= "hour-block" id ">' +
+    '<div class= "hour-block" id=">' +
     // index +
-    '<div class="row no-gutters input-group"><div class="col-sm col-lg-1 input-group-prepend hour justify-content-sm-end pr-3 pt-3">' +
-    timeLabel + 
+    '"</div><div class="row no-gutters input-group"><div class="col-sm col-lg-1 input-group-prepend hour justify-content-sm-end pr-3 pt-3">' +
+    timeLabel +
     '</div><textarea class="form-control ' +
-		blockColor +
-		'">' +
-		hourBlock.event +
-		'</textarea><div class="col-sm col-lg-1 input-group-append"><button class="saveBtn btn-block" type="submit"><i class="far fa-save fa-3x"></i></button></div></div></div>';
+    blockColor +
+    '">' +
+    hourBlock.event +
+    '</textarea><div class="col-sm col-lg-1 input-group-append"><button class="saveBtn btn-block" type="submit"><i class="far fa-save fa-3x"></i></button></div></div></div>';
 
-    $(".container").append(row);
+  $(".container").append(row);
 })
 
-function colorRow (time) {
+function colorRow(time) {
   var scheduleNow = moment(currentHour, "H A");
-  var scheduleEntry = moment(time,"H A");
+  var scheduleEntry = moment(time, "H A");
   console.log(currentHour)
-  console.log (time)
-  if (scheduleNow. isBefore(scheduleEntry) === true) {
+  console.log(time)
+  if (scheduleNow.isBefore(scheduleEntry) === true) {
     return "future";
     console.log(scheduleNow, scheduleEntry)
-  } else if (scheduleNow.isAfter(scheduleEntry)===true) {
+  } else if (scheduleNow.isAfter(scheduleEntry) === true) {
     return "past";
   } else {
     return "present";
   }
 }
+
+var workEvents = JSON.parse(localStorage.getItem("workDay"));
+if (workEvents) {
+  workdaySchedule = workEvents;
+}
+
+$(".saveBtn").on("click", function () {
+  var blockID = parseInt(
+    $(this)
+      .closest(".hour-block")
+      .attr("id")
+  );
+
+  var userEntry = $.trim(
+    $(this)
+      .parent()
+      .sibilings('textarea')
+      .val()
+  );
+
+  workdaySchedule[blockID].event = userEntry;
+
+  localStorage.setItem("workDay", JSON.stringify(workdaySchedule));
+
+
+})
