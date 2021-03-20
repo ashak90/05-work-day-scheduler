@@ -16,19 +16,19 @@ setInterval(function () {
 // console.log(currentHour);
 
 var workdaySchedule = [
-  { time: "9 AM", event: " " },
-  { time: "10 AM", event: " " },
-  { time: "11 AM", event: " " },
-  { time: "12 PM", event: " " },
-  { time: "1 PM", event: " " },
-  { time: "2 PM", event: " " },
-  { time: "3 PM", event: " " },
-  { time: "4 PM", event: " " },
-  { time: "5 PM", event: " " },
-  { time: "6 PM", event: " " },
-  { time: "7 PM", event: " " },
-  { time: "8 PM", event: " " },
-  { time: "9 PM", event: " " },
+  { time: "9 AM", event: "" },
+  { time: "10 AM", event: "" },
+  { time: "11 AM", event: "" },
+  { time: "12 PM", event: "" },
+  { time: "1 PM", event: "" },
+  { time: "2 PM", event: "" },
+  { time: "3 PM", event: "" },
+  { time: "4 PM", event: "" },
+  { time: "5 PM", event: "" },
+  { time: "6 PM", event: "" },
+  { time: "7 PM", event: "" },
+  { time: "8 PM", event: "" },
+  { time: "9 PM", event: "" },
 ];
 
 // for (let i=0; i<timeOfDay.length; i++) {
@@ -63,9 +63,9 @@ workdaySchedule.forEach(function (hourBlock, index) {
   var timeLabel = hourBlock.time;
   var blockColor = colorRow(timeLabel);
   var row =
-    '<div class= "hour-block" id=">' +
-    // index +
-    '"</div><div class="row no-gutters input-group"><div class="col-sm col-lg-1 input-group-prepend hour justify-content-sm-end pr-3 pt-3">' +
+    '<div class= "hour-block" id="' +
+    index +
+    '"><div class="row no-gutters input-group entry-time"><div class="col-sm col-lg-1 input-group-prepend hour justify-content-sm-end pr-3 pt-3">' +
     timeLabel +
     '</div><textarea class="form-control ' +
     blockColor +
@@ -74,6 +74,7 @@ workdaySchedule.forEach(function (hourBlock, index) {
     '</textarea><div class="col-sm col-lg-1 input-group-append"><button class="saveBtn btn-block" type="submit"><i class="far fa-save fa-3x"></i></button></div></div></div>';
 
   $(".container").append(row);
+  console.log("Index is: " + index)
 })
 
 function colorRow(time) {
@@ -91,10 +92,10 @@ function colorRow(time) {
   }
 }
 
-var workEvents = JSON.parse(localStorage.getItem("workDay"));
-if (workEvents) {
-  workdaySchedule = workEvents;
-}
+// var workEvents = JSON.parse(localStorage.getItem("workDay"));
+// if (workEvents) {
+//   workdaySchedule = workEvents;
+// }
 
 $(".saveBtn").on("click", function () {
   var blockID = parseInt(
@@ -106,13 +107,17 @@ $(".saveBtn").on("click", function () {
   var userEntry = $.trim(
     $(this)
       .parent()
-      .sibilings('textarea')
+      .siblings("textarea")
       .val()
   );
+  
+  console.log("The current time is: " + blockID)
+  console.log(userEntry)
 
   workdaySchedule[blockID].event = userEntry;
+  localStorage.setItem(blockID, userEntry);
 
-  localStorage.setItem("workDay", JSON.stringify(workdaySchedule));
+  // localStorage.setItem("workDay", JSON.stringify(workdaySchedule));
 
 
 })
