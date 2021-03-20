@@ -23,10 +23,6 @@ var workdaySchedule = [
   { time: "3 PM", event: "" },
   { time: "4 PM", event: "" },
   { time: "5 PM", event: "" },
-  { time: "6 PM", event: "" },
-  { time: "7 PM", event: "" },
-  { time: "8 PM", event: "" },
-  { time: "9 PM", event: "" },
 ];
 
 //Function to create the structure of the schedule
